@@ -1,0 +1,61 @@
+{
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#0b2545",
+        "activityBar.foreground": "#eef4ed",
+        "activityBarBadge.background": "#134074",
+        "titleBar.activeBackground": "#134074",
+        "titleBar.activeForeground": "#eef4ed",
+        "sideBar.background": "#13315c",
+        "sideBar.foreground": "#eef4ed",
+        "editor.background": "#0f2a47",
+        "editor.foreground": "#eef4ed",
+        "editor.lineNumbersColor": "#8da9c4",
+        "editorCursor.foreground": "#eef4ed",
+        "editorLineNumber.activeForeground": "#8da9c4",
+        "editorLineNumber.foreground": "#4a6a8a",
+        "editor.selectionBackground": "#134074",
+        "editor.wordHighlightBackground": "#13315c",
+        "editorBracketMatch.background": "#8da9c4",
+        "statusBar.background": "#0b2545",
+        "statusBar.foreground": "#eef4ed",
+        "statusBarItem.hoverBackground": "#134074",
+        "terminal.background": "#0f2a47",
+        "terminal.foreground": "#eef4ed",
+        "terminal.ansiBlue": "#8da9c4",
+        "terminal.ansiCyan": "#eef4ed",
+        "terminal.ansiMagenta": "#134074",
+        "terminal.ansiBrightMagenta": "#8da9c4",
+        "tab.activeBackground": "#0f2a47",
+        "tab.activeForeground": "#eef4ed",
+        "tab.inactiveBackground": "#13315c",
+        "tab.inactiveForeground": "#8da9c4"
+    },
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": ["comment"],
+                "settings": {
+                    "foreground": "#8da9c4"
+                }
+            },
+            {
+                "scope": ["string"],
+                "settings": {
+                    "foreground": "#eef4ed"
+                }
+            },
+            {
+                "scope": ["variable"],
+                "settings": {
+                    "foreground": "#eef4ed"
+                }
+            },
+            {
+                "scope": ["keyword"],
+                "settings": {
+                    "foreground": "#134074"
+                }
+            }
+        ]
+    }
+}
