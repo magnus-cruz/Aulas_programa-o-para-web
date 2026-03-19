@@ -3,11 +3,12 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Cara a Cara - Layout</title>
+	<title>2048 • Tema Cara a Cara</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 	<link rel="stylesheet" href="css/style.css" />
+
 </head>
 <body>
 	<div class="loading-screen" id="loadingScreen" aria-live="polite" aria-label="Carregando jogo">
@@ -24,15 +25,15 @@
 	<div class="app">
 		<header>
 			<div>
-				<h1>Layout Designer</h1>
-				<p class="subtitle">Prévia visual com tema claro/escuro e componentes.</p>
+				<h1>2048</h1>
+				<p class="subtitle">Deslize as peças e alcance 2048.</p>
 			</div>
 
 			<div class="header-actions">
 				<div class="theme-wrap">
 					<span id="themeLabel">Tema claro</span>
 					<label class="switch" aria-label="Alternar tema claro e escuro">
-						<input id="input" type="checkbox" />
+						<input type="checkbox" id="input">
 						<div class="theme-slider">
 							<div class="sun-moon">
 								<svg id="moon-dot-1" class="moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
@@ -61,30 +62,45 @@
 		</header>
 
 		<main>
-			<section class="panel design-showcase" aria-label="Showcase de design">
-				<h2>Componentes visuais</h2>
-
-				<div class="design-grid">
-					<section class="design-card">
-						<h3>Prévia de elementos</h3>
-						<div class="preview-box">
-							<label for="previewInput">Campo de texto</label>
-							<input id="previewInput" class="input" type="text" placeholder="Digite algo..." />
-							<div class="actions-row">
-								<button class="btn" type="button">Botão principal</button>
-								<button class="btn secondary" type="button">Botão secundário</button>
-							</div>
+			<section class="panel game-panel" aria-label="Jogo 2048">
+				<div class="game-top">
+					<div class="score-wrap">
+						<div class="score-box">
+							<span class="label">Pontuação</span>
+							<span class="value" id="scoreValue">0</span>
 						</div>
-					</section>
+						<div class="score-box">
+							<span class="label">Melhor</span>
+							<span class="value" id="bestValue">0</span>
+						</div>
+					</div>
+					<button class="btn" id="newGameBtn" type="button">Nova Partida</button>
 				</div>
+
+				<div class="board-wrap">
+					<div class="game-board" id="gameBoard" aria-label="Tabuleiro 4 por 4">
+						<div class="grid-bg" id="gridBg"></div>
+						<div class="tiles-layer" id="tilesLayer"></div>
+					</div>
+					<div class="state-overlay" id="stateOverlay" aria-live="polite">
+						<div class="state-card">
+							<h3 id="overlayTitle">Game Over</h3>
+							<p id="overlayText">Pontuação: 0</p>
+							<div class="overlay-actions" id="overlayActions"></div>
+						</div>
+					</div>
+				</div>
+
+				<p class="help">Controles: Setas, WASD, arrastar com mouse ou swipe no celular.</p>
 			</section>
 		</main>
 
 		<footer>
-			Layout somente de design • Sem lógica de jogo e sem caixa de som.
+			2048 em arquivo único • Tema, loading e persistência de pontuação local.
 		</footer>
 	</div>
 
 	<script src="js/script.js"></script>
+	<script src="js/game.js"></script>
 </body>
 </html>
