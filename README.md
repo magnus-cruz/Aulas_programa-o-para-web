@@ -13,7 +13,7 @@ Projeto com atividades e layouts de interface para estudos de HTML, CSS e JavaSc
 
 ## Como executar
 
-1. Abra `1°trabalho/cara-car.html` no navegador.
+1. Abra `1°trabalho/2048.html` no navegador.
 2. Use o botão de tema para alternar entre claro e escuro.
 
 ## Autor
