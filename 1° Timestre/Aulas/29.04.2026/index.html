@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript na Prática</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --bg-2: #0d1b2a;
+      --panel: #0f2238;
+      --panel-2: #12263d;
+      --text: #e8f1ff;
+      --muted: #a9bed8;
+      --accent: #4dd6ff;
+      --accent-2: #7cdb6f;
+      --border: rgba(255, 255, 255, 0.1);
+      --shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(77, 214, 255, 0.18), transparent 30%),
+        linear-gradient(180deg, #06101d 0%, #0a1626 55%, #040913 100%);
+    }
+
+    .page {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 40px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      margin: 0 0 14px;
+      font-size: clamp(2rem, 4vw, 4rem);
+      line-height: 1.05;
+    }
+
+    .hero p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(77, 214, 255, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(77, 214, 255, 0.25);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(18, 38, 61, 0.94), rgba(8, 20, 34, 0.94));
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .panel__header h2 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .panel__header span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .panel__body {
+      padding: 18px;
+    }
+
+    .topic-list {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .topic-list li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .topic-list strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      margin-top: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(77, 214, 255, 0.15);
+      flex: 0 0 auto;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      padding: 13px 18px;
+      border-radius: 12px;
+      font-weight: 700;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn--primary {
+      color: #07111f;
+      background: linear-gradient(135deg, #6ce5ff, #86f59e);
+      box-shadow: 0 10px 24px rgba(77, 214, 255, 0.25);
+    }
+
+    .btn--ghost {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .terminal-shell {
+      position: relative;
+      min-height: 100%;
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+      background-color: #011522;
+      border-radius: 8px;
+      z-index: 1;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .tools {
+      display: flex;
+      align-items: center;
+      padding: 9px;
+      background: #0a1d31;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .circle {
+      padding: 0 4px;
+    }
+
+    .box {
+      display: inline-block;
+      align-items: center;
+      width: 10px;
+      height: 10px;
+      padding: 1px;
+      border-radius: 50%;
+    }
+
+    .red {
+      background-color: #ff605c;
+    }
+
+    .yellow {
+      background-color: #ffbd44;
+    }
+
+    .green {
+      background-color: #00ca4e;
+    }
+
+    .card__content {
+      padding: 18px;
+      position: relative;
+      min-height: 520px;
+    }
+
+    .terminal-title-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .terminal-title-bar h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .terminal-title-bar small {
+      color: var(--muted);
+    }
+
+    .terminal-screen {
+      position: relative;
+      padding: 16px;
+      border-radius: 14px;
+      background: #03131f;
+      border: 1px solid rgba(77, 214, 255, 0.14);
+      min-height: 350px;
+      overflow: auto;
+    }
+
+    .terminal-screen pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: #d5fbe0;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .terminal-screen .prompt {
+      color: #6ce5ff;
+    }
+
+    .terminal-output {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #f7fffb;
+    }
+
+    .terminal-output strong {
+      color: #86f59e;
+    }
+
+    @keyframes blinkCursor {
+      50% {
+        border-right-color: transparent;
+      }
+    }
+
+    @keyframes typeAndDelete {
+      0%,
+      10% {
+        width: 0;
+      }
+      45%,
+      55% {
+        width: 7.5em;
+      }
+      90%,
+      100% {
+        width: 0;
+      }
+    }
+
+    .terminal-loader {
+      border: 0.1em solid #333;
+      background-color: #1a1a1a;
+      color: #0f0;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 1em;
+      padding: 1.5em 1em;
+      width: 12em;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+      position: absolute;
+      inset: 50% auto auto 50%;
+      transform: translate(-50%, -50%);
+      overflow: hidden;
+      box-sizing: border-box;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .terminal-loader.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .terminal-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1.5em;
+      background-color: #333;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      padding: 0 0.4em;
+      box-sizing: border-box;
+    }
+
+    .terminal-controls {
+      float: right;
+    }
+
+    .control {
+      display: inline-block;
+      width: 0.6em;
+      height: 0.6em;
+      margin-left: 0.4em;
+      border-radius: 50%;
+      background-color: #777;
+    }
+
+    .control.close {
+      background-color: #e33;
+    }
+
+    .control.minimize {
+      background-color: #ee0;
+    }
+
+    .control.maximize {
+      background-color: #0b0;
+    }
+
+    .terminal-title {
+      float: left;
+      line-height: 1.5em;
+      color: #eee;
+    }
+
+    .text {
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 0.2em solid green;
+      animation:
+        typeAndDelete 4s steps(11) infinite,
+        blinkCursor 0.5s step-end infinite alternate;
+      margin-top: 1.5em;
+    }
+
+    .loader-caption {
+      margin-top: 70px;
+      text-align: center;
+      color: #b8ffbf;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 960px) {
+      .hero,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div>
+        <div class="badge">JavaScript • básico + prática</div>
+        <h1>Aprenda JavaScript com uma interface em estilo terminal</h1>
+        <p>
+          Esta página apresenta uma explicação simples sobre JavaScript,
+          mostrando suas funções essenciais, como variáveis, funções,
+          eventos, condicionais e manipulação do conteúdo da página.
+        </p>
+        <p>
+          O botão <strong>Executar</strong> simula uma execução no terminal,
+          revela o código e exibe o resultado para deixar o aprendizado mais visual.
+        </p>
+        <div class="actions">
+          <button class="btn btn--primary" id="runBtn">Executar</button>
+          <button class="btn btn--ghost" id="resetBtn">Limpar terminal</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel__header">
+          <h2>O que é JavaScript?</h2>
+          <span>Resumo rápido</span>
+        </div>
+        <div class="panel__body">
+          <ul class="topic-list">
+            <li><span class="dot"></span><div><strong>Lógica da página</strong> Ele permite criar interações, validar dados e reagir aos cliques do usuário.</div></li>
+            <li><span class="dot"></span><div><strong>Funções básicas</strong> Você usa variáveis, condicionais, laços, funções e eventos o tempo todo.</div></li>
+            <li><span class="dot"></span><div><strong>DOM</strong> Com JavaScript você lê e altera textos, estilos e elementos do HTML.</div></li>
+            <li><span class="dot"></span><div><strong>Uso real</strong> É essencial em sites, sistemas web, jogos e aplicações modernas.</div></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <div class="panel__header">
+          <h2>Funções importantes e básicas</h2>
+          <span>Guia resumido</span>
+        </div>
+        <div class="panel__body">
+          <ul class="topic-list">
+            <li><span class="dot"></span><div><strong>Variáveis</strong> Guardam informações com <em>let</em>, <em>const</em> e, em código antigo, <em>var</em>.</div></li>
+            <li><span class="dot"></span><div><strong>Funções</strong> Reutilizam blocos de código e deixam o programa organizado.</div></li>
+            <li><span class="dot"></span><div><strong>Condicionais</strong> <em>if</em>, <em>else</em> e <em>switch</em> tomam decisões.</div></li>
+            <li><span class="dot"></span><div><strong>Repetições</strong> <em>for</em> e <em>while</em> servem para repetir tarefas.</div></li>
+            <li><span class="dot"></span><div><strong>Eventos</strong> Cliques, teclas e carregamento da página disparam ações.</div></li>
+          </ul>
+          <p class="footer-note">Esses fundamentos são a base para qualquer projeto web com interatividade.</p>
+        </div>
+      </article>
+
+      <article class="panel terminal-shell">
+        <div class="card">
+          <div class="tools">
+            <div class="circle"><span class="red box"></span></div>
+            <div class="circle"><span class="yellow box"></span></div>
+            <div class="circle"><span class="green box"></span></div>
+          </div>
+          <div class="card__content">
+            <div class="terminal-title-bar">
+              <div>
+                <h3>Terminal JavaScript</h3>
+                <small>O código aparece aqui quando você executa</small>
+              </div>
+              <small id="statusText">Pronto para executar</small>
+            </div>
+
+            <div class="terminal-screen" id="terminalScreen">
+              <pre id="codeBlock"><span class="prompt">&gt;</span> Clique em Executar para carregar o exemplo de JavaScript.</pre>
+              <div class="terminal-output" id="outputBox">
+                <strong>Saída:</strong> aguardando execução...
+              </div>
+            </div>
+
+            <div class="terminal-loader" id="loaderBox" aria-live="polite" aria-busy="true">
+              <div class="terminal-header">
+                <div class="terminal-title">Status</div>
+                <div class="terminal-controls">
+                  <div class="control close"></div>
+                  <div class="control minimize"></div>
+                  <div class="control maximize"></div>
+                </div>
+              </div>
+              <div class="loader-caption">Processando...</div>
+              <div class="text">Loading...</div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const runBtn = document.getElementById('runBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const codeBlock = document.getElementById('codeBlock');
+    const outputBox = document.getElementById('outputBox');
+    const loaderBox = document.getElementById('loaderBox');
+    const statusText = document.getElementById('statusText');
+
+    const codeExample = [
+      'const nome = "JavaScript";',
+      '',
+      'function mostrarMensagem() {',
+      '  return `Olá! Você está aprendendo ${nome}.`;',
+      '}',
+      '',
+      'if (nome.length > 0) {',
+      '  console.log(mostrarMensagem());',
+      '}'
+    ].join('\n');
+
+    function resetTerminal() {
+      codeBlock.innerHTML = '<span class="prompt">&gt;</span> Clique em Executar para carregar o exemplo de JavaScript.';
+      outputBox.innerHTML = '<strong>Saída:</strong> aguardando execução...';
+      statusText.textContent = 'Pronto para executar';
+      loaderBox.classList.remove('is-visible');
+    }
+
+    runBtn.addEventListener('click', () => {
+      statusText.textContent = 'Executando...';
+      loaderBox.classList.add('is-visible');
+      outputBox.innerHTML = '<strong>Saída:</strong> carregando o exemplo...';
+
+      setTimeout(() => {
+        loaderBox.classList.remove('is-visible');
+        statusText.textContent = 'Execução concluída';
+        codeBlock.textContent = codeExample;
+        outputBox.innerHTML = '<strong>Saída:</strong> Olá! Você está aprendendo JavaScript.';
+      }, 1600);
+    });
+
+    resetBtn.addEventListener('click', resetTerminal);
+  </script>
+</body>
+</html>
